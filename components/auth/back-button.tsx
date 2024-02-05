@@ -7,7 +7,7 @@ interface BackButtonProps{
     label:string
 }
 
-const BackButton = ({label, href}) => {
+const BackButton = ({label, href} :BackButtonProps) => {
   return (
     <Button variant="link" asChild className='w-full font-normal '>
         <Link href={href}>

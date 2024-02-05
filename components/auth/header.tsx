@@ -6,7 +6,7 @@ interface HeaderProps{
 
 }
 
-const Header = ({label}) => {
+const Header = ({label} :HeaderProps) => {
   return (
     <div className='w-full flex flex-col gap-4 items-center justify-center'>
                <h1 className="flex font-semibold text-7xl gap-4 text-slate-600">
