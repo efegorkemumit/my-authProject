@@ -11,6 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { RegisterSchema } from '@/schema'
+import { register } from '@/action/register'
 
 const RegisterForm = () => {
 
@@ -39,7 +40,7 @@ const RegisterForm = () => {
     setSuccess("");
 
     startTransiton(()=>{
-      login(values)
+      register(values)
       .then((data)=>{
         setError(data.error);
         setSuccess(data.success)
