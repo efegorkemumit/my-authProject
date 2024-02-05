@@ -11,7 +11,7 @@ const SuccessForm = ({message}:SuccessFormProps) => {
     if(!message) return null;
   return (
     <div className='bg-green-600 rounded-xl p-4 text-center
-     justify-center items-center mb-2 text-lg text-white flex gap-2'>
+     justify-center items-center mb-2 mt-2  text-lg text-white flex gap-2'>
         <FaCheckCircle  size={18}/> {message}
         
     </div>

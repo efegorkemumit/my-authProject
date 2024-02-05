@@ -1,5 +1,10 @@
+'use server'
+
 import * as z from 'zod';
 import { RegisterSchema } from '@/schema'
+import { db } from "@/lib/db";
+import bcrypt from "bcrypt";
+import { getUserEmail } from '@/data/user';
 
 
 export const register = async(values: z.infer<typeof RegisterSchema>)=>{
@@ -11,6 +16,26 @@ export const register = async(values: z.infer<typeof RegisterSchema>)=>{
 
 
     }
+
+
+    const {email, password, name} = validateField.data;
+
+    const hasHedpassword  = await bcrypt.hash(password, 10);
+
+    const exitingUser = await getUserEmail(email);
+
+    if(exitingUser){
+        return {error : "email is already !"}
+
+    }
+
+    await db.user.create({
+        data:{
+            name, 
+            email,
+            password: hasHedpassword
+        }
+    })
 
     return {success : "Email sent"}
 
