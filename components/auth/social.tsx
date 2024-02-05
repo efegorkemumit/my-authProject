@@ -8,20 +8,20 @@ const Social = () => {
         
         <Button size="lg"
         className='w-full'
-        variant="outline"
+        variant="google"
         
     >
-        <FaGoogle></FaGoogle>
+        <FaGoogle size={25}></FaGoogle>
         
 
         </Button>
 
         <Button size="lg"
         className='w-full'
-        variant="outline"
+        variant="github"
         
     >
-        <FaGithub></FaGithub>
+        <FaGithub size={25}></FaGithub>
         
 
         </Button>
