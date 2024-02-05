@@ -7,33 +7,32 @@ import SuccessForm from '../SuccessForm'
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
-import { LoginSchema } from '@/schema'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import { login } from '@/action/login'
+import { RegisterSchema } from '@/schema'
 
-
-const LoginForm = () => {
+const RegisterForm = () => {
 
   const [error, setError] = useState<string | undefined>("")
   const [success, setSuccess] = useState<string | undefined>("")
   const [isPending, startTransiton] = useTransition();
 
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
+  const form = useForm<z.infer<typeof RegisterSchema>>({
 
-    resolver: zodResolver(LoginSchema),
+    resolver: zodResolver(RegisterSchema),
     defaultValues:{
       email:"",
       password:"",
+      name:"",
     }
 
 
   });
 
 
-  const onSubmit = async (values: z.infer<typeof LoginSchema>)=>{
+  const onSubmit = async (values: z.infer<typeof RegisterSchema>)=>{
     console.log(values);
 
     setError("");
@@ -57,10 +56,10 @@ const LoginForm = () => {
 
 
   return (
-   <CardWrapper
-   headerLabel="Welcome"
-   backButtonLabel="Dont have an Accout"
-   backButtonHref="/auth/register"
+    <CardWrapper
+   headerLabel="Create an Account"
+   backButtonLabel="Already have an account"
+   backButtonHref="/auth/login"
    showSocail
    >
 
@@ -70,6 +69,27 @@ const LoginForm = () => {
       className='space-y-4'>
 
         <div className=''>
+
+        <FormField
+          control={form.control}
+          name="name"
+          render={({field})=>(
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder='Name'
+                type='text'
+                disabled={isPending}
+                {...field}>
+                
+                </Input>
+
+              </FormControl>
+              <FormMessage/>
+            </FormItem>
+          )} />
+
+
           <FormField
           control={form.control}
           name="email"
@@ -139,4 +159,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default RegisterForm
