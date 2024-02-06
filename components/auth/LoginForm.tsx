@@ -44,7 +44,13 @@ const LoginForm = () => {
       .then((data)=>{
         setError(data.error);
         setSuccess(data.success)
-      });
+      })
+      .catch((error)=>{
+        setError("something Wrong");
+      })
+      
+      
+      ;
 
 
     });
