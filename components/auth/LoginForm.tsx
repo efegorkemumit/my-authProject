@@ -46,7 +46,10 @@ const LoginForm = () => {
         setSuccess(data.success)
       })
       .catch((error)=>{
-        setError("something Wrong");
+
+        console.log(error)
+
+
       })
       
       
