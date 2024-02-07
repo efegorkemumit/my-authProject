@@ -14,13 +14,19 @@ export const publicRoutes = [
 export const authRoutes = [
     "/auth/login",
     "/auth/register",
+    "/auth/error"
 ];
+
+/** 
+*
+*@type {string}
+*/
 
 export const apiAuthPrefix = "/api/auth"
 
 /** 
 *
-*@type {string[]}
+*@type {string}
 */
 
 export const DEFAULT_LOGIN_REDIRECT = "/settings"
