@@ -12,9 +12,16 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { login } from '@/action/login'
+import { useSearchParams } from 'next/navigation'
 
 
 const LoginForm = () => {
+
+  const searchParams = useSearchParams();
+
+  const UrlError = searchParams.get("error") =="OAuthAccountNotLinked"
+  ? "Another account already exists with the same e-mail address"
+  : ""
 
   const [error, setError] = useState<string | undefined>("")
   const [success, setSuccess] = useState<string | undefined>("")
@@ -42,8 +49,8 @@ const LoginForm = () => {
     startTransiton(()=>{
       login(values)
       .then((data)=>{
-        setError(data.error);
-        setSuccess(data.success)
+        setError(data?.error);
+        setSuccess(data?.success)
       })
       .catch((error)=>{
 
@@ -118,7 +125,7 @@ const LoginForm = () => {
             </FormItem>
           )} />
           
-          <ErrorForm message={error}></ErrorForm>
+          <ErrorForm message={error || UrlError}></ErrorForm>
           <SuccessForm message={success}></SuccessForm>
 
           <Button
