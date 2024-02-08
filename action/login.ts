@@ -5,6 +5,9 @@ import { LoginSchema } from '@/schema'
 import { signIn } from '@/auth';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { AuthError } from 'next-auth';
+import { getUserEmail } from '@/data/user';
+import { generateVerificationToken } from '@/lib/token';
+import { sendVerificationEmail } from '@/lib/mail';
 
 
 export const login = async(values: z.infer<typeof LoginSchema>)=>{
@@ -18,6 +21,29 @@ export const login = async(values: z.infer<typeof LoginSchema>)=>{
     } 
 
     const {email, password} = validateField.data;
+
+
+    const exitingUser = await getUserEmail(email);
+
+    if(!exitingUser || !exitingUser.email || !exitingUser.password)
+    {
+      return {error: "email does not exitis"}
+    }
+
+    if(!exitingUser.emailVerified){
+
+      const verificationtoken = await generateVerificationToken(
+        exitingUser.email
+      );
+
+      await sendVerificationEmail(
+        verificationtoken.email,
+        verificationtoken.token,
+      )
+
+      return {success : "Confirm Email sent"}
+ 
+    }
 
     try {
         await signIn("credentials", {
@@ -39,7 +65,6 @@ export const login = async(values: z.infer<typeof LoginSchema>)=>{
       }
 
 
-    return {success : "Email sent"}
 
 
 

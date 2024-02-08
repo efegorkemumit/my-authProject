@@ -5,6 +5,7 @@ import { RegisterSchema } from '@/schema'
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { getUserEmail } from '@/data/user';
+import { generateVerificationToken } from '@/lib/token';
 
 
 export const register = async(values: z.infer<typeof RegisterSchema>)=>{
@@ -37,7 +38,16 @@ export const register = async(values: z.infer<typeof RegisterSchema>)=>{
         }
     })
 
-    return {success : "Email sent"}
+
+    const verificationtoken = await generateVerificationToken(email)
+
+    await sendVerificationEmail(
+        verificationtoken.email,
+        verificationtoken.token,
+      )
+
+
+      return {success : "Confirm Email sent"}
 
 
 
