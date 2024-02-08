@@ -11,7 +11,7 @@ export const sendVerificationEmail = async (email:string,token: string)=>{
 
     await resend.emails.send({
         from: 'onboarding@resend.dev',
-        to: email
+        to: email,
         subject: 'Confirm your email Address',
         html: `<p>Click <a href="${cofirmLinkAddress}"> here </a>  confrim to email </p> `
       });
