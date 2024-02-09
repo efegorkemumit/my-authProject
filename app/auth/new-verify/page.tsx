@@ -1,9 +1,10 @@
+import VerifyForm from '@/components/auth/VerifyForm'
 import React from 'react'
 
-const page = () => {
+const NewVeriyfPage = () => {
   return (
-    <div>page</div>
+    <div><VerifyForm></VerifyForm></div>
   )
 }
 
-export default page
+export default NewVeriyfPage

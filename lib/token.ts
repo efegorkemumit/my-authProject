@@ -12,7 +12,9 @@ export const generateVerificationToken = async(email:string)=>{
 
     if(extingToken){
         await db.verificationToken.delete({
-            where:extingToken.id
+            where: {
+                id: extingToken.id
+            }
         })
     }
 
