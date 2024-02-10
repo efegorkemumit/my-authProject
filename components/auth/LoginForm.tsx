@@ -13,6 +13,7 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { login } from '@/action/login'
 import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 
 
 const LoginForm = () => {
@@ -121,6 +122,19 @@ const LoginForm = () => {
                 </Input>
 
               </FormControl>
+
+              <Button variant="link" className='px-0 font-normal' asChild>
+               
+               <Link href="/auth/reset">
+
+               Forget Password
+               </Link> 
+                
+                
+                </Button>
+
+
+
               <FormMessage/>
             </FormItem>
           )} />
