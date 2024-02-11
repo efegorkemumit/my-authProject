@@ -37,6 +37,7 @@ const LoginForm = () => {
     defaultValues:{
       email:"",
       password:"",
+      code:"",
     }
 
 
@@ -98,57 +99,100 @@ const LoginForm = () => {
       className='space-y-4'>
 
         <div className=''>
-          <FormField
-          control={form.control}
-          name="email"
-          render={({field})=>(
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder='email'
-                type='email'
-                disabled={isPending}
-                {...field}>
-                
-                </Input>
 
-              </FormControl>
-              <FormMessage/>
-            </FormItem>
-          )} />
 
-        <FormField
-          control={form.control}
-          name="password"
-          disabled={isPending}
+{showTwoFactor && (
 
-          render={({field})=>(
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input placeholder='******'
-                type='password'
-                {...field}>
-                
-                </Input>
+<FormField
+control={form.control}
+name="code"
+render={({field})=>(
+  <FormItem>
+    <FormLabel>2FA CODE </FormLabel>
+    <FormControl>
+      <Input placeholder='123456'
+      disabled={isPending}
+      {...field}>
+      
+      </Input>
 
-              </FormControl>
+    </FormControl>
+    <FormMessage/>
+  </FormItem>
+)} />
 
-              <Button variant="link" className='px-0 font-normal' asChild>
-               
-               <Link href="/auth/reset">
 
-               Forget Password
-               </Link> 
-                
-                
-                </Button>
+)} 
 
 
 
-              <FormMessage/>
-            </FormItem>
-          )} />
+{!showTwoFactor && (
+<>
+
+<FormField
+control={form.control}
+name="email"
+render={({field})=>(
+  <FormItem>
+    <FormLabel>Email</FormLabel>
+    <FormControl>
+      <Input placeholder='email'
+      type='email'
+      disabled={isPending}
+      {...field}>
+      
+      </Input>
+
+    </FormControl>
+    <FormMessage/>
+  </FormItem>
+)} />
+
+<FormField
+control={form.control}
+name="password"
+
+render={({field})=>(
+  <FormItem>
+    <FormLabel>Password</FormLabel>
+    <FormControl>
+      <Input placeholder='******'
+      type='password'
+      disabled={isPending}
+
+      {...field}>
+      
+      </Input>
+
+    </FormControl>
+
+    <Button variant="link" className='px-0 font-normal' asChild>
+     
+     <Link href="/auth/reset">
+
+     Forget Password
+     </Link> 
+      
+      
+      </Button>
+
+
+
+    <FormMessage/>
+  </FormItem>
+)} />
+
+
+
+</>
+)} 
+
+
+        
+
+
+
+
           
           <ErrorForm message={error || UrlError}></ErrorForm>
           <SuccessForm message={success}></SuccessForm>
