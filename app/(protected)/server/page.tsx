@@ -1,8 +1,21 @@
+'use client'
+import UserInfoDetailPage from '@/components/userInfo'
+import { useCurrentUser } from '@/hooks/use-current-user'
 import React from 'react'
 
 const SerVerPage = () => {
+
+  const user = useCurrentUser();
   return (
-    <div>SerVerPage</div>
+    <div>
+
+      <UserInfoDetailPage
+      label='Server Component'
+      user={user}></UserInfoDetailPage>
+
+
+
+    </div>
   )
 }
 

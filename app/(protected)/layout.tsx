@@ -17,6 +17,7 @@ const protectedLayout = ({children}:protectedLayoutProps) => {
     bg-gradient-to-r from-indigo-500 via-purple-500 to-purple-400
 '>
   <Navbar></Navbar>
+  <div className='h-5'></div>
 {children}
 
     </div>

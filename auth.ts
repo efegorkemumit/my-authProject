@@ -68,6 +68,10 @@ export const {
           session.user.role = token.role as UserRole;
         }
 
+        if(session.user){
+          session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean
+        }
+
 
         return session;
 
@@ -82,6 +86,8 @@ export const {
         if(!exitingUser)  return token;
 
         token.role = exitingUser.role
+
+        token.isTwoFactorEnabled = exitingUser.isTwoFactorEnabled;
 
 
         return token;
