@@ -3,6 +3,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { db } from "./lib/db"
 import authConfig from "./auth.config"
 import { getUserById } from "./data/user"
+import { getTwoFactorConfirmByUserId } from "./data/two-factor-confirm"
 
 export const {
   handlers: { GET, POST },
@@ -27,6 +28,34 @@ export const {
   },
 
     callbacks:{
+
+      async signIn({user, account}){
+
+        if(account?.provider !=="credentials")  return true;
+
+        const exitingUser = await getUserById(user.id)
+
+        if(!exitingUser?.emailVerified) return false;
+
+        if(exitingUser.isTwoFactorEnabled){
+
+          const twoFactorConfirmation = await getTwoFactorConfirmByUserId(exitingUser.id);
+
+          if(!twoFactorConfirmation) return false;
+
+          await db.twoFactorConfirmation.delete({
+            where: {id:twoFactorConfirmation.id}
+          })
+
+        }
+
+
+        return true;
+
+
+
+
+      },
 
       async session({token, session})
       {

@@ -28,6 +28,8 @@ const LoginForm = () => {
   const [success, setSuccess] = useState<string | undefined>("")
   const [isPending, startTransiton] = useTransition();
 
+  const [showTwoFactor, setShowTwoFactor] = useState(false);
+
 
   const form = useForm<z.infer<typeof LoginSchema>>({
 
@@ -50,18 +52,27 @@ const LoginForm = () => {
     startTransiton(()=>{
       login(values)
       .then((data)=>{
-        setError(data?.error);
-        setSuccess(data?.success)
+
+        if(data?.error){
+          form.reset();
+          setError(data.error)
+
+        }
+
+        if(data?.success){
+          form.reset();
+          setError(data.success)
+          
+        }
+
+        if(data?.twoFactor){
+          setShowTwoFactor(true);
+        }
+
+
+
       })
-      .catch((error)=>{
-
-        console.log(error)
-
-
-      })
-      
-      
-      ;
+      .catch(()=>setError("Something went wrong"))
 
 
     });
