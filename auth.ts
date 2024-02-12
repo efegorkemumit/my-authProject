@@ -4,12 +4,14 @@ import { db } from "./lib/db"
 import authConfig from "./auth.config"
 import { getUserById } from "./data/user"
 import { getTwoFactorConfirmByUserId } from "./data/two-factor-confirm"
+import { getAccountUserId } from "./data/account"
 
 export const {
   handlers: { GET, POST },
   auth,
   signIn,
-  signOut
+  signOut,
+  update
 } = NextAuth({
   pages:{
     signIn:"/auth/login",
@@ -72,6 +74,12 @@ export const {
           session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean
         }
 
+        if(session.user){
+          session.user.name = token.name;
+          session.user.email = token.email;
+          session.user.isOAuth = token.isOAuth as boolean;
+        }
+
 
         return session;
 
@@ -84,6 +92,15 @@ export const {
         const exitingUser = await getUserById(token.sub)
 
         if(!exitingUser)  return token;
+
+
+        const exitingAccount = await getAccountUserId(
+          exitingUser.id
+        );
+
+        token.isOAuth = !!exitingAccount;
+        token.name = exitingUser.name;
+        token.email = exitingUser.email
 
         token.role = exitingUser.role
 
