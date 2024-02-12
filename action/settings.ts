@@ -81,14 +81,21 @@ export const settings = async(values:z.infer<typeof SettingsSchema>)=>{
         }
       });
     
-      update({
-        user: {
-          name: updatedUser.name,
-          email: updatedUser.email,
-          isTwoFactorEnabled: updatedUser.isTwoFactorEnabled,
-          role: updatedUser.role,
-        }
-      });
+      try {
+        update({
+            user: {
+              name: updatedUser.name,
+              email: updatedUser.email,
+              isTwoFactorEnabled: updatedUser.isTwoFactorEnabled,
+              role: updatedUser.role,
+            }
+          });
+        
+      } catch (error) {
+        return {success : "it is okey"};
+
+      }
+  
 
 
     return {success : "it is okey"};
