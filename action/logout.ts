@@ -1,4 +1,3 @@
-'use server'
 
 import { signOut } from "next-auth/react"
 
