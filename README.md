@@ -1,6 +1,6 @@
 
 <a href="" rel="nofollow">
-<img src="https://github.com/efegorkemumit/coffepub/blob/master/public/myauth.png"
+<img src="https://github.com/efegorkemumit/my-authProject/blob/master/public/myauth.png"
  style="max-width: 100%;">
 </a>
 
