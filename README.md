@@ -32,10 +32,8 @@
 ## LINKS
 
 
-Video Tutorial :  
+Video Tutorial :  https://youtu.be/MBsfKFD8W1Y
 
-
-## 22 Şub 2024   18:00 da yayında...
 
 
 
